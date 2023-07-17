@@ -3,44 +3,57 @@ This is the official pytorch implementation of Polar-BEV.
 
 The codes and dataset will be released when the paper is published.
 
-## Usage_Evaluation
-* Clone this repo.
+## Setup
+Download and setup CARLA 0.9.10.1
 ```
-git clone 
-```
-
-* Download the dataset and put into the file of `Data`;
-* Download the pretrained weight and put into the file of `weight`;
-* To evluate the network, use in the root folder of this project
-
-
-## Usage_Train
-* Clone this repo.
-```
-git clone 
+mkdir carla
+cd carla
+wget https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/CARLA_0.9.10.1.tar.gz
+wget https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/AdditionalMaps_0.9.10.1.tar.gz
+tar -xf CARLA_0.9.10.1.tar.gz
+tar -xf AdditionalMaps_0.9.10.1.tar.gz
+rm CARLA_0.9.10.1.tar.gz
+rm AdditionalMaps_0.9.10.1.tar.gz
+cd ..
 ```
 
-* Download the dataset and put into the file of `Data`;
+Clone this repo and build the environment
 
-data for the pre-training of the encoder and BEV Module
-for the training of whole model
+```
+git clone https://github.com/lab-sun/Polar-BEV.git
+cd Polar-BEV
+conda env create -f environment.yml --name Polar-BEV
+conda activate Polar-BEV
+```
 
-* Download the pretrained weight and put into the file of `weight` (optional);
-
-* To train the network, use the train.py in the root folder of this project
 
 ## Dataset
 Download the datasets and then extract it in the file of `Data`
 
-To download the dataset, please refers to: http://
-
 The Control Prediction Module of the XPlan network is firstly pre-trained on the dataset from [TCP](https://github.com/OpenDriveLab/TCP)
 
-To download this data, you may refer to: .
+To train the XPlan network, please refers to: http://
 
 ## Pretrained weights：
 * Download the pretrained weights and then extract it in the file of `weight`
 * The link for pretrained weights is: https: //
+
+## Evaluation
+The evaluation is performed in the Carla Simulator.
+
+Step1: Launch the Carla server,
+```
+cd CARLA_ROOT
+./CarlaUE4.sh --world-port=2000 -opengl
+```
+Set the parameters in the ``leaderboard/scripts/run_evaluation.sh``.
+
+Step2: Start the evaluation
+
+```
+sh leaderboard/scripts/run_evaluation.sh
+```
+
 
 
 ## Citation
