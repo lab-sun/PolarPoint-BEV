@@ -7,9 +7,9 @@ class GlobalConfig:
 	pred_len = 4 # future waypoints predicted
 
 	# data root for pretrain
-	# root_dir_all = "tcp_carla_data"
+	# root_dir_all = "PATH/TO/PRETRAIN-DATA/"
 	# data root for training
-	root_dir_all = "/workspace/dataset/carla_data/"
+	root_dir_all = "/PATH/TO/DATA/"
 
 	train_towns = ['train_data']
 	val_towns = ['val_data']
