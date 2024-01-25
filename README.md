@@ -20,10 +20,10 @@ cd ..
 Clone this repo and build the environment
 
 ```
-git clone https://github.com/lab-sun/Polar-BEV.git
-cd Polar-BEV
-conda env create -f environment.yml --name Polar-BEV
-conda activate Polar-BEV
+git clone https://github.com/lab-sun/PolarPoint-BEV.git
+cd PolarPoint-BEV
+conda env create -f environment.yml --name PolarPoint-BEV
+conda activate PolarPoint-BEV
 ```
 
 
