@@ -4,7 +4,7 @@ This is the official pytorch implementation of PolarPoint-BEV.
 The codes and dataset will be released when the paper is published.
 
 ## Setup
-Download and setup CARLA 0.9.10.1
+Download and setup CARLA 0.9.10.1 (from TCP https://github.com/OpenDriveLab/TCP)
 ```
 mkdir carla
 cd carla
