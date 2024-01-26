@@ -1,0 +1,94 @@
+"""
+This is the script to transfer traditional semantic BEV map to PolarPoint BEV map.
+The main idea is simple, including:
+1) iterate through each point in the polar point BEV map;
+2) locate the corresponding coordinates on the traditional semantic BEV map;
+3) recognize the color of the coordinates, and thereby determine the object category at that point
+Please note that the resolution of traditional semantic BEV map of this script is 150*150 with 3 classes.
+Change the coordinates and color in this script based on your semantic BEV maps.
+"""
+
+
+import os
+from PIL import Image
+import json
+import math
+
+COLOR_BLACK = (0, 0, 0) # background 0
+COLOR_BLUE = (0, 0, 255) # vehicle 1
+COLOR_ALUMINIUM_5 = (255, 255, 255) # road 2
+COLOR_CYAN = (0, 255, 255) # walker 1
+
+COLOR_RED = (255, 0, 0) # tl_red
+COLOR_Lane = (0, 255, 0) # lane
+
+def classify(r, g, b):
+	if b == 255 and r == 0 and g == 0:  # vehicle
+		return 1
+	if b == 255 and r == 0 and g == 255: # walker
+		return 1
+	elif b == 0 and r == 0 and g == 0: # background
+		return 0
+	else:
+		return 2
+
+root = 'Root/to/TraditionalBEV/folders'
+routes = sorted(os.listdir(root))
+
+# Define the center and radius of the fan-shaped region
+center = (150/2, 150)
+# radius = [19.5*5, 16.5*5, 13.5*5, 10.5*5, 8*5, 6*5, 4.5*5, 3.5*5]
+radius = [19.5*5, 17.5*5, 16*5, 14.5*5, 13*5, 11.5*5, 10*5, 9*5, 8*5, 7*5, 6*5, 5.5*5, 5*5, 4.5*5, 4*5, 3.5*5]
+
+# Define the angles of the fan-shaped region
+start_angle = -140
+end_angle = -40
+
+# Define the number of points to detect along the border of the fan
+num_points = 27  # 15_sparse; 21_light; 27_normal; 33_thick; 41_dense
+counter = 1
+
+# Calculate the angle increment between each point
+angle_increment = (end_angle - start_angle) / (num_points-1)
+
+
+for route in routes:
+	route_path = os.path.join(root, route)
+	bev_path = os.path.join(route_path, 'bev_graph_pre')
+	print(counter)
+	counter += 1
+	graph_root = os.path.join(route_path, 'graph_gt')
+	bevs = sorted(os.listdir(bev_path))
+
+	for img in bevs:
+		label_image = []
+		img_path = os.path.join(bev_path, img)
+		graph_name = img[:-4] + '.json'
+		graph_path = os.path.join(graph_root, graph_name)
+
+		img = Image.open(img_path)
+		rgb_im = img.convert('RGB')
+
+		for rad in radius:
+			label_layer = []
+			for i in range(num_points):
+				# Calculate the angle of the current point
+				angle = start_angle + i * angle_increment
+
+				# Calculate the coordinates of the current point
+				x = center[0] + rad * math.cos(math.radians(angle))
+				y = center[1] + rad * math.sin(math.radians(angle))
+
+				# Obtain the RGB value of the current point in the original image
+				r, g, b = img.getpixel((x, y))
+				# label_layer.append(img.getpixel((x, y)))
+				label = classify(r, g, b)
+				label_layer.append(label)
+
+			label_image.append(label_layer)
+
+		with open(graph_path, 'a') as jfile:
+			json.dump(label_image, jfile)
+
+
+# print(label_image)
