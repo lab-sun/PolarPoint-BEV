@@ -58,7 +58,7 @@ class GlobalConfig:
 	bev_weight = 1.0
 	graph_weight = 1.0
 
-	rl_ckpt = "/workspace/published_project/polar_BEV/roach/log/ckpt_11833344.pth"
+	rl_ckpt = "/PATH/TO/roach/log/ckpt_11833344.pth"
 
 	img_aug = True
 
