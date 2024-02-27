@@ -1,8 +1,6 @@
 # PolarPoint-BEV
 This is the official pytorch implementation of PolarPoint-BEV.
 
-The codes and dataset will be released when the paper is published.
-
 ![image](images/network.png)
 
 ## Setup
