@@ -34,11 +34,11 @@ Download the datasets and then extract it in the file of `Data`
 
 The Control Prediction Module of the XPlan network is firstly pre-trained on the dataset from [TCP](https://github.com/OpenDriveLab/TCP)
 
-To train the XPlan network, please refers to: http://
+To train the XPlan network, please refers to [trainset](https://drive.google.com/file/d/1BV7juPDZWJPMduMZSwvXjAmAfEZabnAT/view?usp=sharing) and [valset](https://drive.google.com/file/d/1iObCyK23NPzrhzvR3J1XvHiLZ9tjOimk/view?usp=sharing).
 
 ## Pretrained weights：
 * Download the pretrained weights and then extract it in the file of `weight`
-* The link for pretrained weights is: https: //
+* The link for pretrained weights is [weight](https://drive.google.com/file/d/1jKBGd5nwtHNjDoT114CoiO1lSBj6tds9/view?usp=sharing).
 
 ## Evaluation
 The evaluation is performed in the Carla Simulator.
