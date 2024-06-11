@@ -3,6 +3,8 @@ This is the official pytorch implementation of PolarPoint-BEV.
 
 ![image](images/network.png)
 
+[![PolarPoint-BEV](https://res.cloudinary.com/marcomontalbano/image/upload/v1718086560/video_to_markdown/images/youtube--apkmM82N9Wo-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=apkmM82N9Wo "PolarPoint-BEV")
+
 ## Setup
 Download and setup CARLA 0.9.10.1 (from [TCP](https://github.com/OpenDriveLab/TCP))
 ```
@@ -59,5 +61,11 @@ sh leaderboard/scripts/run_evaluation.sh
 ## Citation
 If you found this code or dataset are useful in your research, please consider citing
 ```
-...
+@article{feng2024polarpoint,
+  title={PolarPoint-BEV: Bird-eye-view Perception in Polar Points for Explainable End-to-end Autonomous Driving},
+  author={Feng, Yuchao and Sun, Yuxiang},
+  journal={IEEE Transactions on Intelligent Vehicles},
+  year={2024},
+  publisher={IEEE}
+}
 ```
