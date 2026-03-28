@@ -28,7 +28,6 @@ conda env create -f environment.yml --name PolarPoint-BEV
 conda activate PolarPoint-BEV
 ```
 
-
 ## Dataset
 Download the datasets and then extract it in the file of `Data`
 
@@ -56,16 +55,16 @@ Step2: Start the evaluation
 sh leaderboard/scripts/run_evaluation.sh
 ```
 
-
-
 ## Citation
 If you found this code or dataset are useful in your research, please consider citing
 ```
-@article{feng2024polarpoint,
-  title={PolarPoint-BEV: Bird-eye-view Perception in Polar Points for Explainable End-to-end Autonomous Driving},
-  author={Feng, Yuchao and Sun, Yuxiang},
-  journal={IEEE Transactions on Intelligent Vehicles},
+@ARTICLE{feng2024polarpointbev,
+  author={Yuchao Feng and Yuxiang Sun},
+  journal={IEEE Transactions on Intelligent Vehicles}, 
+  title={PolarPoint-BEV: Bird-Eye-View Perception in Polar Points for Explainable End-to-End Autonomous Driving}, 
   year={2024},
-  publisher={IEEE}
-}
+  volume={9},
+  number={11},
+  pages={6753-6763},
+  doi={10.1109/TIV.2024.3361093}}
 ```
