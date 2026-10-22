@@ -1,15 +1,16 @@
 from sklearn.metrics import f1_score, classification_report
 import torch
 import numpy as np
-import json
 
 
 def List2List(List):
-	Arr1 = np.array(List[:-1]).reshape(-1, List[0].shape[1])
-	Arr2 = np.array(List[-1]).reshape(-1, List[0].shape[1])
-	Arr = np.vstack((Arr1, Arr2))
-
-	return [i for item in Arr for i in item]
+	# np.array([]) is float64, so stacking an empty prefix (one batch, or a
+	# zero height) promoted integer labels and collapsed integers above 2**53.
+	# Arrays in one validation epoch can also differ in batch size.
+	if len(List) == 0:
+		return []
+	parts = [np.asarray(item).reshape(-1) for item in List]
+	return np.concatenate(parts).tolist()
 
 def Gragh_Metric(total_gt_graph, total_pred_graph):
 	graph_num = len(total_gt_graph)
@@ -26,6 +27,10 @@ def Gragh_Metric(total_gt_graph, total_pred_graph):
 
 	gt_graph_list = List2List(gt_graph_list)
 	pred_graph_list = List2List(pred_graph_list)
+
+	# classification_report raises when no pixel is left to name a class.
+	if len(gt_graph_list) == 0:
+		return float('nan'), 'empty', float('nan')
 
 	# Overall F1 for graph
 	f1_graph_overall = f1_score(gt_graph_list, pred_graph_list, average='micro')
@@ -62,6 +67,8 @@ class ConfusionMatrix(object):
 			self.mat.zero_()
 
 	def compute(self):
+		if self.mat is None:
+			self.mat = torch.zeros((self.num_classes, self.num_classes), dtype=torch.int64)
 		h = self.mat.float()
 		acc_global = torch.diag(h).sum() / h.sum()
 		acc = torch.diag(h) / h.sum(1)
