@@ -19,7 +19,7 @@ rm AdditionalMaps_0.9.10.1.tar.gz
 cd ..
 ```
 
-Clone this repo and build the environment
+Clone this repo and build the environment. `environment.yml` creates a Python 3.7 env named `PolarPoint-BEV` (the CARLA 0.9.10.1 egg is built for Python 3.7) and installs PyTorch 1.10.1 with CUDA 11.3 plus the packages imported by `PolarPointBEV/`, `leaderboard/`, `roach/`, `scenario_runner/`, and `tools/`.
 
 ```
 git clone https://github.com/lab-sun/PolarPoint-BEV.git
@@ -27,6 +27,28 @@ cd PolarPoint-BEV
 conda env create -f environment.yml --name PolarPoint-BEV
 conda activate PolarPoint-BEV
 ```
+
+`leaderboard/scripts/run_evaluation.sh` adds the CARLA egg to `PYTHONPATH`. Set `CARLA_ROOT` in that script to the directory created above. The script then exports:
+
+```
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg
+export PYTHONPATH=$PYTHONPATH:leaderboard
+export PYTHONPATH=$PYTHONPATH:leaderboard/team_code
+export PYTHONPATH=$PYTHONPATH:scenario_runner
+```
+
+## Tests
+
+From the repository root:
+
+```
+pip install -r requirements-test.txt
+python -m pytest -q tests
+```
+
+`requirements-test.txt` installs CPU PyTorch from `https://download.pytorch.org/whl/cpu`, plus pytest and the packages the tests import.
 
 ## Dataset
 Download the datasets and then extract it in the file of `Data`
